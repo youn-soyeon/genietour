@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.genietour.www.mapper.HotelRoomResMapper">
+	<select id="selectListAll" resultType="com.genietour.www.hotel.hotelroomres.HotelRoomResDTO">
+		SELECT 
+			hot_code AS hotCode,
+			hot_name AS hotName,
+			country,
+			city,
+			address,
+			tel,
+			homepage,
+			options,
+			room_code AS roomCode,
+			room_type AS roomType,
+			price,
+			max_room AS maxRoom,
+			stay_date AS stayDate,
+			res_count AS resCount,
+			vacancy
+		FROM Hot_Room_Res_View
+	</select>
+</mapper>

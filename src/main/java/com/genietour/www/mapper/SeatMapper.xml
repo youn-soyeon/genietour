@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.genietour.www.mapper.SeatMapper">
+	<insert id="insertSeat" parameterType="com.genietour.www.flight.seat.SeatDTO">
+	    INSERT
+	    INTO 	Seat
+	    VALUES 	(#{seatCode},
+	    		 #{seatType}, 
+	    		 #{price}, 
+	    		 #{vacancy},
+	    		 #{fliCode})
+	</insert>
+
+		
+	<select id="selectListAll" resultType="com.genietour.www.flight.seat.SeatDTO">
+	    SELECT
+	    		seat_code AS seatCode,
+	    		price,
+	    		vacancy,
+	    		fli_code AS fliCode,
+	    		seat_type AS seatType
+	    FROM 	Seat
+	</select>
+	
+	<select id="selectSeatBySeatCode" resultType="com.genietour.www.flight.seat.SeatDTO" parameterType="com.genietour.www.flight.seat.SeatDTO">
+	    SELECT
+	    		seat_code AS seatCode,
+	    		price,
+	    		vacancy,
+	    		fli_code AS fliCode,
+	    		seat_type AS seatType
+	    FROM 	Seat 
+	    WHERE 	seat_code = #{seatCode}
+	</select>
+	
+	<select id="countSeat" resultType="int">
+	    SELECT	count(seat_code)
+	    FROM	Seat
+	</select>
+	
+	<update id="updateSeat" parameterType="com.genietour.www.flight.seat.SeatDTO">
+	    UPDATE 	Seat
+	    SET		seat_type	= #{seatType},
+	    		price		= #{price},
+	    		vacancy		= #{vacancy},
+	    		fli_code	= #{fliCode}
+	    WHERE	seat_code	= #{seatCode}
+	</update>
+	
+	<delete id="deleteSeat" parameterType="com.genietour.www.flight.seat.SeatDTO">
+	    DELETE
+	    FROM	Seat
+	    WHERE	seat_code = #{seatCode}
+	</delete>
+	
+	
+	
+	
+	
+	
+	<select id="selectListByFliCode" resultType="com.genietour.www.flight.seat.SeatDTO" parameterType="com.genietour.www.flight.seat.SeatDTO">
+	    SELECT
+	    		seat_code AS seatCode,
+	    		price,
+	    		vacancy,
+	    		fli_code AS fliCode,
+	    		seat_type AS seatType
+	    FROM 	Seat 
+	    WHERE 	fli_code = #{fliCode}
+	</select>
+	
+	
+</mapper>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.genietour.www.mapper.FlightMapper">
+	<insert id="insertFlight" parameterType="com.genietour.www.flight.flight.FlightDTO">
+	    INSERT
+	    INTO 	Flight
+	    VALUES 	(#{fliCode}, 
+	    		 #{airline}, 
+	    		 #{fliName},
+	    		 #{depCity},
+	    		 #{arrCity},
+	    		 #{depDate},
+	    		 #{arrDate})
+	</insert>
+	
+	<select id="selectListAll" resultType="com.genietour.www.flight.flight.FlightDTO">
+	    SELECT
+	    		fli_code AS fliCode,
+	    		airline,
+	    		fli_name AS fliName,
+	    		dep_city AS depCity,
+	    		arr_city AS arrCity,
+	    		dep_date AS depDate,
+	    		arr_date AS arrDate
+	    FROM 	Flight
+	</select>
+	
+	<select id="selectFlightByFliCode" resultType="com.genietour.www.flight.flight.FlightDTO">
+	    SELECT
+	    		fli_code AS fliCode,
+	    		airline,
+	    		fli_name AS fliName,
+	    		dep_city AS depCity,
+	    		arr_city AS arrCity,
+	    		dep_date AS depDate,
+	    		arr_date AS arrDate
+	    FROM 	Flight
+	    WHERE	fli_code = #{fliCode}
+	</select>
+	
+	<select id="selectListByAirline" resultType="com.genietour.www.flight.flight.FlightDTO">
+	    SELECT
+	    		fli_code AS fliCode,
+	    		airline,
+	    		fli_name AS fliName,
+	    		dep_city AS depCity,
+	    		arr_city AS arrCity,
+	    		dep_date AS depDate,
+	    		arr_date AS arrDate
+	    FROM 	Flight
+	    WHERE	airline = #{airline}
+	</select>
+	
+	<select id="selectListAirline" resultType="com.genietour.www.flight.flight.FlightDTO">
+	    SELECT	DISTINCT
+	    		airline
+	    FROM 	Flight
+	</select>
+	
+	<select id="selectListDepCity" resultType="com.genietour.www.flight.flight.FlightDTO">
+	    SELECT 	DISTINCT 
+	    		dep_city AS depCity 
+	    FROM 	Flight
+	</select>
+	
+	<select id="selectListDepByArrCity" resultType="com.genietour.www.flight.flight.FlightDTO" parameterType="com.genietour.www.flight.flight.FlightDTO">
+	    SELECT 	DISTINCT 
+	    		arr_city AS arrCity
+	    FROM 	Flight 
+	    WHERE 	dep_city = #{depCity}
+	</select>
+	
+	<select id="countFlight" resultType="int">
+	    SELECT	count(fli_code)
+	    FROM	Flight
+	</select>
+	
+	<update id="updateFlight" parameterType="com.genietour.www.flight.flight.FlightDTO">
+	    UPDATE 	Flight
+	    SET		airline  = #{airline}, 
+	    		fli_name = #{fliName},
+	    		dep_city = #{depCity},
+	    		arr_city = #{arrCity},
+	    		dep_date = #{depDate},
+	    		arr_date = #{arrDate}
+	    WHERE	fli_code = #{fliCode}
+	</update>
+	
+	<delete id="deleteFlight" parameterType="com.genietour.www.flight.flight.FlightDTO">
+	    DELETE
+	    FROM	Flight
+	    WHERE	fli_code = #{fliCode}
+	</delete>
+	
+	<select id="selectMaxFliCode" resultType="int">
+	    SELECT	MAX(fli_code)
+	    FROM	Flight
+	</select>
+	
+	
+</mapper>

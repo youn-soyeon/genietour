@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.genietour.www.mapper.MemberMapper">
+	<insert id="insert" parameterType = "com.genietour.www.member.MemberDTO">
+		INSERT INTO
+			Member(mem_id,	password,	mem_name,	phone,	 role)
+		VALUES	(#{memId},#{password},#{memName}, #{phone},#{role})
+	</insert>
+	<select id="selectAll" resultType="com.genietour.www.member.MemberDTO">
+		SELECT
+			mem_id		AS memId,
+			password	AS password,
+			mem_name	AS memName,
+			phone		AS phone,
+			role		AS role
+		FROM Member
+	</select>
+	<select id="selectByName" parameterType="com.genietour.www.member.MemberDTO" resultType="com.genietour.www.member.MemberDTO">
+		SELECT
+			mem_id		AS memId,
+			password	AS password,
+			mem_name	AS memName,
+			phone		AS phone,
+			role		AS role		
+		FROM Member
+			WHERE	mem_name = #{memName}
+	</select>
+	<select id="selectById" parameterType="com.genietour.www.member.MemberDTO" resultType="com.genietour.www.member.MemberDTO">
+		SELECT
+			mem_id		AS memId,
+			password	AS password,
+			mem_name	AS memName,
+			phone		AS phone,
+			role		AS role
+		FROM Member
+			WHERE mem_id = #{memId}
+	</select>
+	<select id="login"  parameterType="com.genietour.www.member.MemberDTO" resultType="com.genietour.www.member.MemberDTO">
+		SELECT 
+			mem_id		AS memId,
+ 			role		AS role
+	 FROM Member
+	WHERE mem_id = #{memId} AND password = #{password}
+	</select>
+	<select id="count" resultType="int">
+		SELECT COUNT(*) FROM Member
+	</select>
+	<update id="update" parameterType="com.genietour.www.member.MemberDTO">
+		UPDATE Member
+			SET		password = #{password}, phone = #{phone}
+			WHERE mem_Id = #{memId}
+	</update>
+	<delete id="delete" parameterType="com.genietour.www.member.MemberDTO">
+		DELETE FROM Member
+			WHERE mem_id = #{memId}   
+	</delete>
+</mapper>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.genietour.www.mapper.FlightReservationMapper">
+	<insert id="insertFlightReservaion" parameterType="com.genietour.www.flight.flightreservation.FlightReservationDTO">
+	    INSERT INTO Fli_Reservation(fli_res_code, passport, kor_name, eng_name, birth, gender, phone, res_date, comments, mem_id, seat_code)
+		VALUES(#{fliResCode}, #{passport}, #{korName}, #{engName}, #{birth}, #{gender}, #{phone}, #{resDate}, #{comments}, #{memId}, #{seatCode})
+	</insert>
+	<insert id="insertFlightReservaionWithNoCode" parameterType="com.genietour.www.flight.flightreservation.FlightReservationDTO">
+	    INSERT INTO Fli_Reservation(passport, kor_name, eng_name, birth, gender, phone, res_date, comments, mem_id, seat_code)
+		VALUES(#{passport}, #{korName}, #{engName}, #{birth}, #{gender}, #{phone}, #{resDate}, #{comments}, #{memId}, #{seatCode})
+	</insert>
+	
+	
+	<select id="selectListAll" resultType="com.genietour.www.flight.flightreservation.FlightReservationDTO">
+	    SELECT 
+			fli_res_code AS fliResCode, 
+			passport, 
+			kor_name AS korName, 
+			eng_name AS engName, 
+			birth,
+			gender, 
+			phone, 
+			res_date AS resDate,
+			comments, 
+			mem_id AS memId, 
+			seat_code AS seatCode
+		FROM Fli_Reservation
+	</select>
+	<select id="selectListByResDate" resultType="com.genietour.www.flight.flightreservation.FlightReservationDTO" parameterType="com.genietour.www.flight.flightreservation.FlightReservationDTO">
+	    SELECT 
+			fli_res_code AS fliResCode, 
+			passport, 
+			kor_name AS korName, 
+			eng_name AS engName, 
+			birth, 
+			gender, 
+			phone, 
+			res_date AS resDate, 
+			comments, 
+			mem_id AS memId, 
+			seat_code AS seatCode
+		FROM Fli_Reservation
+		WHERE res_date = #{resDate}
+	</select>
+	<select id="selectListByKorName" resultType="com.genietour.www.flight.flightreservation.FlightReservationDTO" parameterType="com.genietour.www.flight.flightreservation.FlightReservationDTO">
+	    SELECT 
+			fli_res_code AS fliResCode, 
+			passport, 
+			kor_name AS korName, 
+			eng_name AS engName, 
+			birth, 
+			gender, 
+			phone, 
+			res_date AS resDate, 
+			comments, 
+			mem_id AS memId, 
+			seat_code AS seatCode
+		FROM Fli_Reservation
+		WHERE kor_name = #{korName}
+	</select>
+	<select id="selectListByMemId" resultType="com.genietour.www.flight.flightreservation.FlightReservationDTO" parameterType="com.genietour.www.flight.flightreservation.FlightReservationDTO">
+	    SELECT 
+			fli_res_code AS fliResCode, 
+			passport, 
+			kor_name AS korName, 
+			eng_name AS engName, 
+			birth, 
+			gender, 
+			phone, 
+			res_date AS resDate, 
+			comments, 
+			mem_id AS memId, 
+			seat_code AS seatCode
+		FROM Fli_Reservation
+		WHERE mem_id = #{memId}
+	</select>
+	<select id="countFlgihtReservaion" resultType="int">
+	    SELECT count(*) FROM Fli_Reservation
+	</select>
+	<select id="countFlightReservationByMemId" parameterType="string" resultType="int">
+	    SELECT count(*) FROM Fli_Reservation
+	    WHERE mem_id = #{memId}
+	</select>
+	
+	
+	<update id="updateMember" parameterType="com.genietour.www.flight.flightreservation.FlightReservationDTO">
+	    UPDATE Fli_Reservation
+	    SET phone = #{phone}, comments = #{comments}, seat_code = #{seatCode}
+	    WHERE mem_id = #{memId} AND fli_res_code = #{fliResCode}
+	</update>
+	<update id="updateAdmin" parameterType="com.genietour.www.flight.flightreservation.FlightReservationDTO">
+	    UPDATE Fli_Reservation
+	    SET eng_name = #{engName}, passport = #{passport}, phone = #{phone}, comments = #{comments}, seat_code = #{seatCode}
+	    WHERE mem_id = #{memId} AND fli_res_code = #{fliResCode}
+	</update>
+	
+	<update id="updateVacancy" parameterType="com.genietour.www.flight.flightreservation.FlightReservationDTO">
+	    UPDATE 	Seat
+	    SET		vacancy		= vacancy -1
+	    WHERE	seat_code	= #{seatCode}
+	</update>
+	
+	<delete id="deleteFlightReservation" parameterType="com.genietour.www.flight.flightreservation.FlightReservationDTO">
+	    DELETE FROM Fli_Reservation
+	    WHERE fli_res_code = #{fliResCode}
+	</delete>
+</mapper>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.genietour.www.mapper.HotelReservationMapper">
+	<insert id="insertHotelReservation" parameterType="com.genietour.www.hotel.hotelreservation.HotelReservationDTO">
+		INSERT INTO Hot_Reservation(
+		hot_res_code, 
+		hot_res_name, 
+		email, 
+		phone,  
+		nationality,  
+		gender, 
+		arr_time, 
+		stay_date, 
+		res_date, 
+		payment, 
+		comments, 
+		mem_id, 
+		room_code)
+		VALUES (#{hotResCode}, #{hotResName}, #{email}, #{phone}, #{nationality}, #{gender}, #{arrTime}, #{stayDate}, CURDATE(), #{payment}, #{comments}, #{memId}, #{roomCode});
+	</insert>
+	
+	<insert id="insertHotelReservationWithNoCode" parameterType="com.genietour.www.hotel.hotelreservation.HotelReservationDTO">
+		INSERT INTO
+			Hot_Reservation(hot_res_name, email, phone,  nationality,  gender, arr_time, stay_date, res_date, payment, comments, mem_id, room_code)
+		VALUES (#{hotResName}, #{email}, #{phone}, #{nationality}, #{gender}, #{arrTime}, #{stayDate}, #{resDate}, #{payment}, #{comments}, #{memId}, #{roomCode});
+	</insert>
+	
+	
+	<select id="selectListAll" resultType="com.genietour.www.hotel.hotelreservation.HotelReservationDTO">
+		SELECT 
+			hot_res_code AS hotResCode,
+			hot_res_name AS hotResName,
+			email,
+			phone,
+			nationality,
+			gender,
+			arr_time AS arrTime,
+			stay_date AS stayDate,
+			res_date AS resDate,
+			payment,
+			comments,
+			mem_id AS memId,
+			room_code AS roomCode
+		FROM Hot_Reservation
+	</select>
+	
+	<select id="selectHotelReservationByHotResCode" resultType="com.genietour.www.hotel.hotelreservation.HotelReservationDTO">
+	    SELECT 
+			hot_res_code AS hotResCode,
+			hot_res_name AS hotResName,
+			email,
+			phone,
+			nationality,
+			gender,
+			arr_time AS arrTime,
+			stay_date AS stayDate,
+			res_date AS resDate,
+			payment,
+			comments,
+			mem_id AS memId,
+			room_code AS roomCode
+		FROM Hot_Reservation
+		WHERE
+			hot_res_code = #{hotResCode}
+	</select>
+	
+	<select id="selectListByMemId" resultType="com.genietour.www.hotel.hotelreservation.HotelReservationDTO">
+	     SELECT 
+			hot_res_code AS hotResCode,
+			hot_res_name AS hotResName,
+			email,
+			phone,
+			nationality,
+			gender,
+			arr_time AS arrTime,
+			stay_date AS stayDate,
+			res_date AS resDate,
+			payment,
+			comments,
+			mem_id AS memId,
+			room_code AS roomCode
+		FROM Hot_Reservation
+		WHERE
+			mem_id = #{memId}
+	</select>
+	
+	<select id="countHotelReservation" resultType="int">
+		SELECT COUNT(*) FROM Hot_Reservation
+	</select>
+	
+	<select id="countHotelReservationByMemId" parameterType="string" resultType="int">
+		SELECT COUNT(*) FROM Hot_Reservation
+		WHERE mem_id = #{memId}
+	</select>
+	
+	<update id="updateHotelReservation" parameterType="com.genietour.www.hotel.hotelreservation.HotelReservationDTO" >
+		UPDATE
+			Hot_Reservation
+		SET
+			hot_res_name = #{hotResName},
+			email	 	 = #{email},
+			phone		 = #{phone},
+			nationality  = #{nationality},
+			gender       = #{gender},
+			arr_time     = #{arrTime},
+			stay_date	 = #{stayDate},
+			res_date	 = #{resDate},
+			payment      = #{payment},
+			comments	 = #{comments},
+			mem_id		 = #{memId},
+			room_code    = #{roomCode}
+		WHERE
+			hot_res_code = #{hotResCode}
+	</update>
+	
+	<delete id="deleteHotelReservation" parameterType="com.genietour.www.hotel.hotelreservation.HotelReservationDTO">
+	    DELETE FROM
+			Hot_Reservation
+		WHERE
+			hot_res_code = #{hotResCode}
+	</delete>
+
+	
+</mapper>

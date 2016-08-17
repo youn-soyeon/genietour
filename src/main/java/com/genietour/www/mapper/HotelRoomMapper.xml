@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.genietour.www.mapper.HotelRoomMapper">
+    
+    <select id="selectListAll" resultType="com.genietour.www.hotel.hotelroom.HotelRoomDTO">
+	SELECT
+		hot_code AS hotCode, 
+		hot_name AS hotName, 
+		country, 
+		city, 
+		address, 
+		tel, 
+		homepage, 
+		options,
+		image1,
+		image2,
+		image3,
+		owner,
+		room_code AS roomCode,
+		room_type AS roomType, 
+		price, 
+		vacancy 
+	FROM Hot_Room_View	
+	</select>
+	
+    <select id="selectHotelRoomByRoomCode" resultType="com.genietour.www.hotel.hotelroom.HotelRoomDTO" parameterType="com.genietour.www.hotel.hotelroom.HotelRoomDTO">
+	SELECT
+		hot_code AS hotCode, 
+		hot_name AS hotName, 
+		country, 
+		city, 
+		address, 
+		tel, 
+		homepage, 
+		options,
+		image1,
+		image2,
+		image3,
+		owner,
+		room_code AS roomCode,
+		room_type AS roomType, 
+		price, 
+		vacancy 
+	FROM Hot_Room_View
+	where room_code = #{roomCode}	
+	</select>
+	  
+     <select id="selectListByHotCode" resultType="com.genietour.www.hotel.hotelroom.HotelRoomDTO" parameterType="com.genietour.www.hotel.hotelroom.HotelRoomDTO">
+	SELECT
+		hot_code AS hotCode, 
+		hot_name AS hotName, 
+		country, 
+		city, 
+		address, 
+		tel, 
+		homepage, 
+		options,
+		image1,
+		image2,
+		image3,
+		owner,
+		room_code AS roomCode,
+		room_type AS roomType, 
+		price, 
+		vacancy 
+	FROM Hot_Room_View
+	where hot_code = #{hotCode}	
+	</select>
+    
+    <select id="selectListByRoomType" resultType="com.genietour.www.hotel.hotelroom.HotelRoomDTO" parameterType="com.genietour.www.hotel.hotelroom.HotelRoomDTO">
+	SELECT
+		hot_code AS hotCode, 
+		hot_name AS hotName, 
+		country, 
+		city, 
+		address, 
+		tel, 
+		homepage, 
+		options,
+		image1,
+		image2,
+		image3,
+		owner,
+		room_code AS roomCode,
+		room_type AS roomType, 
+		price, 
+		vacancy 
+	FROM Hot_Room_View
+	where room_type = #{roomType}	
+	</select>
+    
+	<select id="selectListByPrice" resultType="com.genietour.www.hotel.hotelroom.HotelRoomDTO" parameterType="com.genietour.www.hotel.hotelroom.HotelRoomDTO">
+	SELECT
+		hot_code AS hotCode, 
+		hot_name AS hotName, 
+		country, 
+		city, 
+		address, 
+		tel, 
+		homepage, 
+		options,
+		image1,
+		image2,
+		image3,
+		owner,
+		room_code AS roomCode,
+		room_type AS roomType, 
+		price, 
+		vacancy 
+	FROM Hot_Room_View
+	where price >= #{price}	
+	</select>
+    
+    <select id="selectListByVacancy" resultType="com.genietour.www.hotel.hotelroom.HotelRoomDTO" parameterType="com.genietour.www.hotel.hotelroom.HotelRoomDTO">
+	SELECT
+		hot_code AS hotCode, 
+		hot_name AS hotName, 
+		country, 
+		city, 
+		address, 
+		tel, 
+		homepage, 
+		options,
+		image1,
+		image2,
+		image3,
+		owner,
+		room_code AS roomCode,
+		room_type AS roomType, 
+		price, 
+		vacancy 
+	FROM Hot_Room_View
+	where vacancy >= #{vacancy}	
+	</select>
+    
+	<select id="selectListByCity" resultType="com.genietour.www.hotel.hotelroom.HotelRoomDTO" parameterType="com.genietour.www.hotel.hotelroom.HotelRoomDTO">
+	select hot_code AS hotCode, 
+	hot_name AS hotName, 
+	country, 
+	city, 
+	address, 
+	tel, 
+	homepage, 
+	options, 
+	image1,
+	image2,
+	image3,
+	owner,
+	room_code AS roomCode,
+	room_type AS roomType, 
+	price, 
+	vacancy 
+	from Hot_Room_View
+	where city = #{city}
+	</select>
+	
+	<select id="selectHotelRoomByRoomType" resultType="com.genietour.www.hotel.hotelroom.HotelRoomDTO" parameterType="com.genietour.www.hotel.hotelroom.HotelRoomDTO">
+	SELECT 
+	hot_code AS hotCode, 
+	hot_name AS hotName, 
+	country, 
+	city, 
+	address, 
+	tel, 
+	homepage, 
+	options,
+	image1,
+	image2,
+	image3,
+	owner,
+	room_code AS roomCode,
+	room_type AS roomType, 
+	price, 
+	vacancy 
+ 	FROM Hot_Room_View 
+ 	WHERE hot_code=#{hotCode} AND room_type=#{roomType}
+	</select>
+	
+	<select id="selectListByInnerDate" resultType="com.genietour.www.hotel.hotelroom.HotelRoomDTO" parameterType="com.genietour.www.hotel.hotelroomres.HotelRoomResDTO">
+	SELECT 
+	hot_code AS hotCode, 
+	hot_name AS hotName, 
+	country, 
+	city, 
+	address, 
+	tel, 
+	homepage, 
+	options,
+	image1,
+	image2,
+	image3,
+	owner,
+	room_code AS roomCode,
+	room_type AS roomType, 
+	price, 
+	vacancy 
+	FROM Hot_Room_View
+	WHERE hot_code= #{hotCode} AND room_code NOT IN
+ 	(SELECT room_code FROM Hot_Room_Res_View WHERE stay_date<![CDATA[>=]]>#{startDay} AND stay_date<![CDATA[<=]]>#{endDay} AND vacancy<![CDATA[<=]]>0)
+	</select>
+	
+	<select id="selectListByAll" resultType="com.genietour.www.hotel.hotelroom.HotelRoomDTO" parameterType="com.genietour.www.hotel.hotelroomres.HotelRoomResDTO">
+	SELECT
+	hot_code AS hotCode, 
+	hot_name AS hotName, 
+	country, 
+	city, 
+	address, 
+	tel, 
+	homepage, 
+	options,
+	image1,
+	image2,
+	image3,
+	owner,
+	room_code AS roomCode,
+	room_type AS roomType, 
+	price, 
+	vacancy 
+	FROM Hot_Room_View where city=#{city}
+	 <if test='roomType != "" '>
+	      AND hot_code IN (SELECT hot_code FROM Hot_Room_View WHERE room_type=#{roomType} 
+     </if>
+	 <if test='startDay != "" '>
+	      <if test='endDay != "" '>
+	          AND room_code NOT IN (SELECT room_code FROM Hot_Room_Res_View WHERE stay_date<![CDATA[>=]]>#{startDay} AND stay_date<![CDATA[<=]]>#{endDay} AND vacancy<![CDATA[<=]]>0)
+	 	  </if>
+	 </if>
+    )GROUP BY hot_code
+	</select>
+	
+	<select id="selectListByHotCodeAndAll" resultType="com.genietour.www.hotel.hotelroom.HotelRoomDTO" parameterType="com.genietour.www.hotel.hotelroomres.HotelRoomResDTO">
+	SELECT
+	hot_code AS hotCode, 
+	hot_name AS hotName, 
+	country, 
+	city, 
+	address, 
+	tel, 
+	homepage, 
+	options,
+	image1,
+	image2,
+	image3,
+	owner,
+	room_code AS roomCode,
+	room_type AS roomType, 
+	price, 
+	vacancy
+	FROM Hot_Room_View
+	WHERE room_code NOT IN 
+		(SELECT room_code FROM Hot_Room_Res_View WHERE stay_date<![CDATA[>=]]>#{startDay} AND stay_date<![CDATA[<=]]>#{endDay} AND vacancy<![CDATA[<=]]>0)
+ 	AND hot_code=#{hotCode}
+	</select>
+	
+	<select id="selectListByOptions" resultType="com.genietour.www.hotel.hotelroom.HotelRoomDTO" parameterType="com.genietour.www.hotel.hotelroom.HotelRoomDTO">
+	    
+	</select>
+	
+	<select id="countAll" resultType="int">
+	    SELECT count(*) FROM Hot_Room_View	
+	</select>
+</mapper>

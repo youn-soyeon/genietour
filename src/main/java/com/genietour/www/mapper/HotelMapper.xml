@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.genietour.www.mapper.HotelMapper">
+	
+    <!--HOTEL-->
+	<insert id="insertHotel" parameterType="com.genietour.www.hotel.hotel.HotelDTO" >
+	insert into Hotel(hot_code, hot_name, country, city, address, tel, homepage,options) values(#{hotCode},#{hotName},#{country},#{city},#{address},#{tel},#{homepage},#{options})
+	</insert>
+	
+	<select id="selectListAll" resultType="com.genietour.www.hotel.hotel.HotelDTO">
+	select 
+	hot_code AS hotCode,
+	hot_name As hotName, 
+	country, 
+	city, 
+	address, 
+	tel, 
+	homepage, 
+	options,
+	image1, 
+	image2,
+	image3,
+	owner
+	from Hotel
+	</select>
+	
+	<select id="selectListByHotName" parameterType="com.genietour.www.hotel.hotel.HotelDTO" resultType="com.genietour.www.hotel.hotel.HotelDTO">
+	select 
+	hot_code AS hotCode,
+	hot_name As hotName, 
+	country, 
+	city, 
+	address, 
+	tel, 
+	homepage, 
+	options,
+	image1, 
+	image2,
+	image3,
+	owner
+	from Hotel
+	where hot_name = #{hotName}
+	</select>
+	
+	<select id="selectListByCity" parameterType="com.genietour.www.hotel.hotel.HotelDTO" resultType="com.genietour.www.hotel.hotel.HotelDTO">
+	select 
+	hot_code AS hotCode,
+	hot_name As hotName, 
+	country, 
+	city, 
+	address, 
+	tel, 
+	homepage, 
+	options,
+	image1, 
+	image2,
+	image3,
+	owner
+	from Hotel
+	where city = #{city}
+	</select>
+	
+	<select id="selectHotelByHotCode" parameterType="com.genietour.www.hotel.hotel.HotelDTO" resultType="com.genietour.www.hotel.hotel.HotelDTO">
+	select 
+	hot_code AS hotCode,
+	hot_name As hotName, 
+	country, 
+	city, 
+	address, 
+	tel, 
+	homepage, 
+	options,
+	image1, 
+	image2,
+	image3,
+	owner
+	from Hotel
+	where hot_code = #{hotCode}
+	</select>
+	
+	<update id="updateHotel" parameterType="com.genietour.www.hotel.hotel.HotelDTO">
+	update Hotel set hot_code=#{hotCode} where hot_name=#{hotName}
+	</update>
+	
+	<delete id="deleteHotel" parameterType="com.genietour.www.hotel.hotel.HotelDTO">
+	delete from Hotel where hot_code=#{hotCode};
+	</delete>
+	
+	<select id="countHotel" resultType="int">
+	    select count(*) from Hotel
+	</select>
+	
+	<select id="selectMaxHotCode" resultType="int">
+	    SELECT	MAX(hot_code)
+	    FROM	Hotel
+	</select>
+	
+	<select id="selectListByDate" resultType="com.genietour.www.hotel.hotel.HotelDTO" parameterType="com.genietour.www.hotel.hotelroomres.HotelRoomResDTO">
+	SELECT
+	hot_code AS hotCode,
+	hot_name As hotName, 
+	country, 
+	city, 
+	address, 
+	tel, 
+	homepage, 
+	options,
+	image1, 
+	image2,
+	image3,
+	owner
+	FROM Hotel
+	WHERE hot_code NOT IN 
+	(SELECT hot_code FROM Hot_Room_Res_View WHERE stay_date<![CDATA[>=]]>#{startDay} AND stay_date<![CDATA[<=]]>#{endDay} AND vacancy<![CDATA[<=]]>0)
+	</select>
+	
+	
+</mapper>

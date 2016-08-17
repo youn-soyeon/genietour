@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.genietour.www.mapper.FlightSeatMapper">
+	<select id="selectListAll" resultType="com.genietour.www.flight.flightseat.FlightSeatDTO">
+	    SELECT
+				fli_code AS fliCode,
+				airline,
+				fli_name AS fliName,
+				dep_city AS depCity,
+				arr_city AS arrCity,
+				dep_date AS depDate,
+				dep_time AS depTime,
+				arr_date AS arrDate,
+				arr_time AS arrTime,
+				duration,
+				seat_code AS seatCode,
+				seat_Type AS seatType,
+				price,
+				vacancy
+	    FROM 	Flight_Seat_View
+	</select>
+	
+	<select id="selectListSearchFlight" resultType="com.genietour.www.flight.flightseat.FlightSeatDTO" parameterType="com.genietour.www.flight.flightseat.FlightSeatDTO">
+	    SELECT
+				fli_code AS fliCode,
+				airline,
+				fli_name AS fliName,
+				dep_city AS depCity,
+				arr_city AS arrCity,
+				dep_date AS depDate,
+				arr_date AS arrDate,
+				dep_time AS depTime,
+				arr_time AS arrTime,
+				seat_code AS seatCode,
+				seat_Type AS seatType,
+				price,
+				vacancy
+	    FROM 	Flight_Seat_View
+	    WHERE 	dep_city = #{depCity} 
+	    AND 	arr_city = #{arrCity}
+	    AND 	dep_date = #{depDate}
+	</select>
+
+	<select id="selectSearchVacancy" resultType="com.genietour.www.flight.flightseat.FlightSeatDTO" parameterType="com.genietour.www.flight.flightseat.FlightSeatDTO">
+		SELECT
+				fli_code AS fliCode,
+				airline,
+				fli_name AS fliName,
+				dep_city AS depCity,
+				arr_city AS arrCity,
+				dep_date AS depDate,
+				dep_time AS depTime,
+				arr_date AS arrDate,
+				arr_time AS arrTime,
+				duration,
+				seat_code AS seatCode,
+				seat_Type AS seatType,
+				price,
+				vacancy
+		FROM 	Flight_Seat_View
+		WHERE 	seat_code = #{seatCode};
+	</select>
+	<select id="countFlightSeatAll" resultType="int">
+	    SELECT
+	    	count(*)
+		FROM 	Flight_Seat_View
+	</select>
+</mapper>
